@@ -53,8 +53,11 @@ class ajaxApi implements interfaceApi{
     }//if
     else{
         //$products = query_posts(['vtaminkataxonomy' => $categoryName, 'post_type' => 'goods']);
-        $products = query_posts(['term_name' => $categoryName, 'post_type' => 'goods']);
 
+        $products = get_posts([
+            'post_type' => 'goods',
+            'vtaminkataxonomy' => $categoryName
+        ]);
     }//else
 
 
@@ -215,7 +218,8 @@ class ajaxApi implements interfaceApi{
             $categoryName = $category->name;
             $categoryList[]= [
                 'term_id'=>$category->term_id,
-                'name'=>$categoryName
+                'name'=>$categoryName,
+                'slug' =>$category->slug
             ];
 
         endforeach;

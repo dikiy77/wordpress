@@ -226,6 +226,8 @@ app.config( [
 
                         $scope.categories = categories;
 
+
+
                     } ]
                 },
                 "content":{
@@ -233,8 +235,6 @@ app.config( [
                     controller:['$scope', '$stateParams' ,'ProductService','productsByCategory' ,function ($scope,$stateParams,ProductService,productsByCategory) {
                         $scope.productsByCategory = productsByCategory;
 
-                        console.log(' $scope.productsByCategory',  $scope.productsByCategory);
-                        $scope.categoryName = $stateParams.categoryID;
 
 
 
@@ -254,8 +254,9 @@ app.config( [
                     return ProductService.getCategory();
                 }],
 
-                'productsByCategory':['ProductService','$stateParams', function  ( ProductService, $stateParams){
-                    return ProductService.getProducts(10, 0, $stateParams.categoryID);
+                'productsByCategory':['ProductService','$stateParams', 'categories',  function  ( ProductService, $stateParams, categories){
+                    let category = categories.filter( (x) => {return x.name === $stateParams.categoryID});
+                    return ProductService.getProducts(10, 0, category[0].slug);
                 }]
 
             }

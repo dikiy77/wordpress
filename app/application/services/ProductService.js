@@ -47,13 +47,12 @@ export default class ProductService{
                 return products;
             }
             else{
-                let categories = {
+                let categoriesProduct = {
                     products: response.data.products,
                     name: response.data.categoryName
                 };
 
-                console.log("categories", response.data.products);
-                return categories;
+                return categoriesProduct;
             }
 
 
